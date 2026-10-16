@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>كلمات متقاطعة - محل الورد</title>
+<style>
+body{background:#111;color:#fff;text-align:center;font-family:Arial;padding:15px}
+h1{color:#ff6b9d}
+.grid{display:inline-grid;grid-template-columns:repeat(7,42px);gap:3px;background:#333;padding:10px;border-radius:12px}
+.cell{width:42px;height:42px;background:#fff;border-radius:5px;display:flex;align-items:center;justify-content:center}
+.cell.black{background:#222}
+input{width:100%;height:100%;border:none;text-align:center;font-size:20px;font-weight:bold;background:transparent;outline:none}
+.clues{max-width:500px;margin:20px auto;text-align:right;background:#222;padding:15px;border-radius:10px}
+button{background:#ff6b9d;color:#fff;border:none;padding:12px 25px;border-radius:25px;font-size:16px;cursor:pointer}
+.correct{background:#4caf50!important}
+</style>
+</head>
+<body>
+<h1>🌹 كلمات متقاطعة - بنت الورد 🌹</h1>
+<p>كتب الحرف فكل خانة</p>
+<div class="grid" id="grid"></div>
+<div class="clues">
+<b>أفقي:</b><br>
+1. تبيعه البنت - ورد<br>
+2. مرضها - سرطان<br>
+3. حالتها بعد الطبيب - مكتئبة<br><br>
+<b>عمودي:</b><br>
+1. مكان عملها - محل ورد<br>
+2. يعالج الناس - طبيب
+</div>
+<button onclick="check()">تحقق</button>
+<p id="res"></p>
+<script>
+const sol=[
+['و','ر','د','■','■','■','■'],
+['م','■','ر','■','ط','ب','ي'],
+['ح','■','س','ر','ط','ا','ن'],
+['ل','■','ا','■','ب','■','■'],
+['و','ر','د','■','ي','■','■'],
+['ر','■','■','■','ب','■','■'],
+['د','م','ك','ت','ئ','ب','ة']
+];
+const g=document.getElementById('grid');
+for(let r=0;r<7;r++)for(let c=0;c<7;c++){
+ let d=document.createElement('div');d.className='cell';
+ if(sol[r][c]=='■'){d.classList.add('black');}
+ else{let i=document.createElement('input');i.maxLength=1;i.dataset.a=sol[r][c];d.appendChild(i);}
+ g.appendChild(d);
+}
+function check(){
+ let ok=0,tot=0;
+ document.querySelectorAll('input').forEach(e=>{tot++;if(e.value==e.dataset.a){ok++;e.parentElement.classList.add('correct')}});
+ document.getElementById('res').innerText= ok==tot? '🎉 برافو حليتيها!' : `حليتي ${ok} من ${tot}`;
+}
+</script>
+</body>
+</html>
